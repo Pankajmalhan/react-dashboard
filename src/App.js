@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
-import Layout from '../src/components/Layout.js';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import DashboardScreen from "./containers/dashboard/DashboardScreen";
+import AboutUsScreen from "./containers/aboutus/AboutUsScreen";
 
 function App() {
   return (
-    <Layout>
-    </Layout>
+    <Switch>
+      <Route exact path="/" component={DashboardScreen} />
+      <Route exact path='/aboutus' component={AboutUsScreen} />
+      <Redirect from="**" to="/" />
+    </Switch>
   );
 }
 

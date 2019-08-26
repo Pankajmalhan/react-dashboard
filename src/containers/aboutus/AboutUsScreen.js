@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+
 export class AboutUsScreen extends Component {
   constructor(props) {
     super(props);
@@ -12,11 +13,12 @@ export class AboutUsScreen extends Component {
       ],
       activeJob: 'livescience',
       data: {
-        
+
       },
       savedReports: [
         { tittle: 'Current month' },
       ],
+      listData: []
     }
     this.handleJobClick = this.handleJobClick.bind(this);
   }
@@ -26,6 +28,10 @@ export class AboutUsScreen extends Component {
     console.dir(this);
   }
 
+  newList = (input) => {
+      var newData=new Array(1000).fill(input.target.value?input.target.value:'dummy')
+      this.setState({listData:[...this.state.listData,...newData]})
+  }
   render() {
     return (
       <div>
@@ -38,33 +44,12 @@ export class AboutUsScreen extends Component {
               {/* <Menu data={this.state} onClick={this.handleJobClick} /> */}
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">DashBoard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                  <div class="btn-group mr-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                  </div>
-                  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar"></span>
-                    This week
-                   </button>
-                </div>
-              </div>
-              {/* <div class="row">
-                <div class="col-6">
-                  <LineChart data={this.state.data} activeJob={this.state.activeJob} />
-                </div>
-                <div class="col-6">
-                  <PieChart data={this.state.data} activeJob={this.state.activeJob} />
-                </div>
-              </div>
-              <h2>Test Reports</h2>
-              <TestReport data={this.state.data} activeJob={this.state.activeJob} /> */}
+              <input type="text" onChange={this.newList} style={{marginTop:10,backgroundColor:'yellow'}}/>
+              {this.state.listData.map((item, index) => <p key={index}>{item}</p>)}
             </main>
           </div>
         </div>
-       
+
       </div>
     );
   }

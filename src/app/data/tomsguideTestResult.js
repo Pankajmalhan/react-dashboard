@@ -1,4 +1,4 @@
-{
+export const tomsguideTestResult = {
     "b3f01a356d0a85de329e48e17b2b664": {
         "statistic": {
             "failed": 0,

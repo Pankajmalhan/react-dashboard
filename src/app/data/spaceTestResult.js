@@ -1,4 +1,4 @@
-{
+export const spaceTestResult = {
     "403e6244fbc787ea362cdd71f4609a93" : {
       "statistic" : {
         "failed" : 0,

@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import DashboardScreen from "./containers/dashboard/DashboardScreen";
-import AboutUsScreen from "./containers/aboutus/AboutUsScreen";
+import DashboardScreen from "./app/containers/dashboard/DashboardScreen";
+import AboutUsScreen from "./app/containers/aboutus/AboutUsScreen";
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={DashboardScreen} />
-      <Route exact path='/aboutus' component={AboutUsScreen} />
+      {/* Below name should be like about-us */}
+      <Route exact path='/aboutus' component={AboutUsScreen} /> 
       <Redirect from="**" to="/" />
     </Switch>
   );

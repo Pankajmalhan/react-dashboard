@@ -1,4 +1,4 @@
-{
+export const livescienceTestResult = {
     "44421bf39a354cdcb52feff820aa2cbb": {
         "statistic": {
             "failed": 0,

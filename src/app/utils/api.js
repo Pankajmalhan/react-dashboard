@@ -1,7 +1,6 @@
 
 // import ServiceHandler from "../ServiceLayer/ServiceHandler";
-import { strings } from './i18n';
-
+import ApiPaths from "../constants/api";
 class Api {
     static headers() {
         return {
@@ -11,23 +10,23 @@ class Api {
     }
 
     static getApiPath = (apiName) => {
-        return `http://www.test.com`
+        return ApiPaths.base + apiName
     }
 
     static async get(route) {
-        return Api.xhr(route, null, "GET", callbacks);
+        return Api.xhr(route, null, "GET");
     }
 
-    static put(route, params) {
-        return Api.xhr(route, params, "PUT", callbacks);
+    static put(route, data) {
+        return Api.xhr(route, data, "PUT");
     }
 
-    static async post(route, params, abortSignal) {
-        return Api.xhr(route, params, "POST", abortSignal);
+    static async post(route, data) {
+        return Api.xhr(route, data, "POST");
     }
 
-    static delete(route, params) {
-        return Api.xhr(route, params, "DELETE", callbacks);
+    static delete(route, data) {
+        return Api.xhr(route, data, "DELETE");
     }
 
     static getFormDataFromObject(object) {
@@ -67,25 +66,21 @@ class Api {
         }
         catch (exp) {
             console.log({ exp });
-            // console.log("Error in upload image", exp);
             Promise.reject("failed")
         }
 
     }
 
-    static async xhr(route, params, verb, abortSignal) {
+    static async xhr(route, data, verb, abortSignal) {
         try {
             //Get api path
             let url = Api.getApiPath(route);
             //Create request bosy
-            let body = Object.assign(params);
-            let mobileToken = await LocalStorage.getItem("MobileToken");
-            let options = Object.assign(
-                { method: "POST", headers: Api.headers() }, { body: JSON.stringify(body) }
-            );
-            if (abortSignal) {
-                options = Object.assign(options, { signal: abortSignal })
+            let options = {};
+            if (verb != "GET" && verb != "HEAD") {
+                options = Object.assign(options, { body: JSON.stringify(data) });
             }
+            options = Object.assign(options,{ method: verb, headers: Api.headers() });
             const response = await fetch(url, options);
             if (response.status == 200) {
                 return {

@@ -45,8 +45,7 @@ class Menu extends Component {
                   className="nav-link"
                   onClick={e => {
                     this.onHandleJobClick(e, this, job.tittle);
-                  }}
-                >
+                  }}>
                   <span>
                     <div>{job.tittle + "-job"}</div>
                   </span>

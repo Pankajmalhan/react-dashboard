@@ -7,7 +7,8 @@ import PieChart from "../../components/charts/PieCharts";
 import TestReport from "../../components/reports/TestReports";
 import Menu from "../../components/menu/Menu";
 import { getAppDataSelector } from "../../reducers/appReducer";
-import { dashboardClickHandler } from "../../actions/dashBoardActions";
+import { getJobsData } from "../../actions/appActions";
+import Api from "../../utils/api";
 export class DashboardScreen extends Component {
   constructor(props) {
     super(props);
@@ -19,17 +20,14 @@ export class DashboardScreen extends Component {
         { tittle: "tomsguide" }
       ],
       activeJob: "livescience",
-      // data: {
-      //   livescience: livescienceData,
-      //   space: spaceData,
-      //   tomsguide: tomsguideData
-
-      // },
       savedReports: [{ tittle: "Current month" }]
     };
     this.handleJobClick = this.handleJobClick.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getJobsData();
+  }
   handleJobClick(tittle) {
     this.setState({ activeJob: tittle });
     this.props.itemClickHandler(tittle);
@@ -50,8 +48,8 @@ export class DashboardScreen extends Component {
             {dashboardData.loading ? (
               <h2>Fetching</h2>
             ) : (
-              <div>The Count is {dashboardData.count}</div>
-            )}
+                <div>The Count is {dashboardData.count}</div>
+              )}
           </div>
         </nav>
         <div className="container-fluid">
@@ -89,25 +87,25 @@ export class DashboardScreen extends Component {
               <div className="row">
                 <div className="col-6">
                   {/* <LineChart data={this.state.data} activeJob={this.state.activeJob} /> */}
-                  <LineChart
+                  {/* <LineChart
                     data={dashboardData}
                     activeJob={this.state.activeJob}
-                  />
+                  /> */}
                 </div>
                 <div className="col-6">
                   {/* <PieChart  data={this.state.data} activeJob={this.state.activeJob} /> */}
-                  <PieChart
+                  {/* <PieChart
                     data={dashboardData}
                     activeJob={this.state.activeJob}
-                  />
+                  /> */}
                 </div>
               </div>
               <h2>Test Reports</h2>
               {/* <TestReport data={this.state.data} activeJob={this.state.activeJob} /> */}
-              <TestReport
+              {/* <TestReport
                 data={dashboardData}
                 activeJob={this.state.activeJob}
-              />
+              /> */}
             </main>
           </div>
         </div>
@@ -126,7 +124,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      itemClickHandler: dashboardClickHandler
+      getJobsData: getJobsData
     },
     dispatch
   );

@@ -6,7 +6,7 @@ import LineChart from "../../components/charts/LineChart";
 import PieChart from "../../components/charts/PieCharts";
 import TestReport from "../../components/reports/TestReports";
 import Menu from "../../components/menu/Menu";
-import { getAppDataSelector } from "../../reducers/appReducer";
+import {getJobData,getAppDataSelector,getLoadingStatus } from "../../reducers/appReducer";
 import { getJobsData } from "../../actions/appActions";
 import Api from "../../utils/api";
 export class DashboardScreen extends Component {
@@ -86,11 +86,7 @@ export class DashboardScreen extends Component {
               </div>
               <div className="row">
                 <div className="col-6">
-                  {/* <LineChart data={this.state.data} activeJob={this.state.activeJob} /> */}
-                  {/* <LineChart
-                    data={dashboardData}
-                    activeJob={this.state.activeJob}
-                  /> */}
+                 {this.props.jobData&&<LineChart isLoading={this.props.isLoading} data={this.props.jobData} activeJob={this.state.activeJob} />}
                 </div>
                 <div className="col-6">
                   {/* <PieChart  data={this.state.data} activeJob={this.state.activeJob} /> */}
@@ -117,7 +113,9 @@ export class DashboardScreen extends Component {
 const mapStateToProps = state => {
   return {
     // dashboardData: {...state.chartReducer,...state.menuReducer,...state.reportReducer}
-    dashboardData: getAppDataSelector(state)
+    dashboardData: getAppDataSelector(state),
+    jobData:getJobData(state),
+    isLoading:getLoadingStatus(state)
   };
 };
 
